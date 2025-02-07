@@ -75,17 +75,25 @@ with props */
 function SkillList(props) {
   return props.skillList.map((skill) => (
     <div className="skill-list">
-      <Skill skill={skill.skill} color={skill.color} leve={skill.level} key={skill.skill} />
+      <Skill
+        skill={skill.skill}
+        color={skill.color}
+        level={skill.level}
+        key={skill.skill}
+      />
     </div>
   ));
 }
 
 // each skill must have a name, a color and an emoji
+// using ternary operator and short-cut operator (both do the same thing)
 function Skill({ skill, color, level }) {
   return (
     <div className="skill" style={{ backgroundColor: color }}>
       <span>{skill}</span>
-      <span>{level === "beginner" ? {String.fromCodePoint("0x1F4AA") : ""}</span>
+      <span>{level === "beginner" ? String.fromCodePoint("0x1f476") : ""}</span>
+      <span>{level === "intermediate" && String.fromCodePoint("0x1f44d")}</span>
+      <span>{level === "advanced" && String.fromCodePoint("0x1F4AA")}</span>
     </div>
   );
 }
