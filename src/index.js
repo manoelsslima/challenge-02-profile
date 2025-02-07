@@ -1,8 +1,8 @@
-import { StrictMode, useState } from "react";
+import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./style.css";
 
-const skills = [
+const skillsData = [
   {
     skill: "HTML+CSS",
     level: "advanced",
@@ -36,7 +36,7 @@ const skills = [
 ];
 
 function App() {
-  const [skillState, setSkillState] = useState();
+  const skills = skillsData;
   return (
     <div className="card">
       <Avatar imageName="profile.jpeg" />
@@ -46,11 +46,7 @@ function App() {
           bio="Software Engineer with over 13 years of experience
           specializing in Java, REST APIs, and Spring Boot."
         />
-        <SkillList
-          state={skillState}
-          parentCallback={setSkillState}
-          skillList={skills}
-        />
+        <SkillList skillList={skills} />
       </div>
     </div>
   );
@@ -76,17 +72,20 @@ function Intro(props) {
 /* should have one Skill component for each
 web dev skill that you have, customized
 with props */
-function SkillList({ state, skillList, parentCallback }) {
-  skillList.map((skill) => (
-    <Skill state={state} skill={skill} parentCallback={parentCallback} />
+function SkillList(props) {
+  return props.skillList.map((skill) => (
+    <div className="skill-list">
+      <Skill skill={skill.skill} color={skill.color} leve={skill.level} key={skill.skill} />
+    </div>
   ));
 }
 
 // each skill must have a name, a color and an emoji
-function Skill({ state, skill, parentCallback }) {
+function Skill({ skill, color, level }) {
   return (
-    <div className="skill" style={{ backgroundColor: skill.color }}>
-      {state} {skill} {parentCallback}
+    <div className="skill" style={{ backgroundColor: color }}>
+      <span>{skill}</span>
+      <span>{level === "beginner" ? {String.fromCodePoint("0x1F4AA") : ""}</span>
     </div>
   );
 }
